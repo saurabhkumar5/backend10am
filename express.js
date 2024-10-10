@@ -1,4 +1,5 @@
 const express  = require('express');
+const mongoose = require('mongoose')
 const app  = express();
 
 
@@ -11,6 +12,35 @@ app.use(express.json());
 // d = delete
 
 
+
+
+
+mongoose.connect('mongodb://localhost:27017/teacher')
+        .then(()=>console.log("database is connected"))
+        
+
+
+      const  userSchema =  new mongoose.Schema({
+
+                          name:String,
+                          age:Number,
+                          address:String
+                     })
+
+               const Model = mongoose.model('batch',userSchema)      
+
+
+
+      app.post('/teacher',(req,res)=>{
+
+               const data = req.body;
+        //        console.log(data)
+                //   const value  = new Model({name:"aman"})
+                //       value.save();
+                const value  = new Model(data)
+                      value.save();
+               res.send("hello from teacher path")
+      })         
 
 app.get('/tv',(req,res)=>{
               
