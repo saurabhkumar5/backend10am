@@ -30,6 +30,7 @@ mongoose.connect('mongodb://localhost:27017/teacher')
                const Model = mongoose.model('batch',userSchema)      
 
 
+         //post method      
 
       app.post('/teacher',(req,res)=>{
 
@@ -40,7 +41,53 @@ mongoose.connect('mongodb://localhost:27017/teacher')
                 const value  = new Model(data)
                       value.save();
                res.send("hello from teacher path")
-      })         
+      }) 
+      
+      //get method
+
+      app.get('/teacher',(req,res)=>{
+          
+                Model.find({})
+                      .then((data)=>{
+                        res.send(data)
+                      })               
+        
+      })
+
+      app.get('/teacher/:id',(req,res)=>{
+                
+            const value  =  req.params.id
+        //     console.log(value)
+                  Model.findById(value)
+                       .then((data)=>{
+                        //  console.log(value)
+                        res.send(data)
+
+                       
+                       })
+      })
+
+      app.put('/teacher/:id',(req,res)=>{
+                const id   = req.params.id
+                const data = req.body
+                console.log(data)
+                //   console.log(id)
+                 
+                    Model.findByIdAndUpdate(id,data)
+                          .then((value)=>{
+                                res.send(value)
+                          })
+      })
+
+
+      app.delete('/teacher/:id',(req,res)=>{
+                  
+                      const id = req.params.id;
+                            Model.findByIdAndDelete(id)
+                                 .then((data)=>{
+                                        res.send("your account is deleted successfully")
+                                 })
+      })
 
 app.get('/tv',(req,res)=>{
               
