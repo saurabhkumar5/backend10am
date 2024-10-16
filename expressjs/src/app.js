@@ -9,11 +9,25 @@ app.use(express.json())
 
 
 app.post('/signup',(req,res)=>{
-       const value = req.body;
-       console.log(value)
+       const {fullname,username,password,emailid} = req.body;
+       console.log(fullname,username,password,emailid)
 
-           const user  = new User(value)
-           user.save();
+               const name   = fullname.trim();
+               const usernaam   = username.trim();
+
+              
+
+            //    if(
+            //     [fullname,username,password,emailid].some((value)=>{
+            //         value?.trim()==""
+            //     })
+            // ){
+
+            //    }
+
+       const user  = new User({name,usernaam,password,emailid})
+       user.save();
+
 
     res.send("signup successfully")
 })
